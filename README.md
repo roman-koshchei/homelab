@@ -2,7 +2,7 @@
 
 Building cloud on own old laptop to create cloud boxes later.
 
-## Setup
+## Router
 
 To make web server accessible from public internet we need to forward ports from router to a machine that runs server.
 
@@ -18,3 +18,8 @@ Then from router control panel in some section called "Port forwarding" or simil
 | UDP      | 443         | 443          |
 
 You can forward to any machine port, like 8080 or 8443 if you like. But it will be easier to think about it if they will be the same.
+
+## OS
+
+I am exploring NixOS right now for server machine, it seems interesting.
+I separated cloud related configuration in [cloud.nix](./nixos/cloud.nix) file.
