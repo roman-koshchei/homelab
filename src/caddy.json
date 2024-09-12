@@ -12,11 +12,7 @@
               "handle": [
                 {
                   "handler": "reverse_proxy",
-                  "upstreams": [
-                    {
-                      "dial": ":5000"
-                    }
-                  ]
+                  "upstreams": [{ "dial": ":5000" }]
                 }
               ],
               "terminal": true
