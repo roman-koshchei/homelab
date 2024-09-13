@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-
   # http and https
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   # http/3
@@ -16,11 +15,11 @@
     '';
 
     # needs to be moved to separate config file, because changes during runtime
-    extraConfig = ''
-      cloud.cookingweb.dev {
+    virtualHosts."cloud.cookingweb.dev" = {
+      extraConfig = ''
         reverse_proxy :5000
-      }
-    '';
+      '';
+    }
   };
 
   systemd.services.sharp-api-0 = {
