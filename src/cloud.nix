@@ -1,29 +1,35 @@
 { config, pkgs, ... }:
 
-{
+let 
+  cloudPort = 5000;
+  pocketbasePort = 8090;
+
+  proxyHttp = 80;
+  proxyHttps = 443;
+in {
   # http and https
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ proxyHttp proxyHttps ];
   # http/3
-  networking.firewall.allowedUDPPorts = [ 443 ];
+  networking.firewall.allowedUDPPorts = [ proxyHttps ];
 
   services.caddy = {
     enable = true;
 
     globalConfig = ''
-      http_port 80
-      https_port 443
+      http_port ${proxyHttp}
+      https_port ${proxyHttps}
     '';
 
     # needs to be moved to separate config file, because changes during runtime
     virtualHosts."cloud.cookingweb.dev" = {
       extraConfig = ''
-        reverse_proxy :5000
+        reverse_proxy :${cloudPort}
       '';
     };
 
     virtualHosts."pocketbase.cookingweb.dev" = {
       extraConfig = ''
-        reverse_proxy :8090
+        reverse_proxy :${pocketbasePort}
       '';
     };
   };
@@ -38,7 +44,7 @@
       Type = "simple";
       Restart = "always";
       StateDirectory = "sharp-api";
-      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet /var/lib/sharp-api/bin/SharpApi.dll --urls 'http://0.0.0.0:5000'";
+      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet /var/lib/sharp-api/bin/SharpApi.dll --urls 'http://0.0.0.0:${cloudPort}'";
       WorkingDirectory = "/var/lib/sharp-api/bin";
     };
 
@@ -54,7 +60,7 @@
       Type = "simple";
       Restart = "always";
       StateDirectory = "pocketbase";
-      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:8090' --dir='/var/lib/pocketbase'";
+      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:${pocketbasePort}' --dir='/var/lib/pocketbase'";
     };
   };
 
