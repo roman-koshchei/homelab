@@ -7,7 +7,6 @@
   # http/3
   networking.firewall.allowedUDPPorts = [ 443 ];
 
-
   services.caddy = {
     enable = true;
 
