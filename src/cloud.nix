@@ -19,7 +19,13 @@
       extraConfig = ''
         reverse_proxy :5000
       '';
-    }
+    };
+
+    virtualHosts."pocketbase.cookingweb.dev" = {
+      extraConfig = ''
+        reverse_proxy :8090
+      '';
+    };
   };
 
   systemd.services.sharp-api-0 = {
@@ -38,32 +44,17 @@
 
   };
 
-  systemd.services.pocketbase-0 = {
+  systemd.services.pocketbase = {
     enable = true;
     description = "Pocketbase";
 
-    wantedBy = [ "multi-user.target" "caddy.service" ];
+    wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
       Type = "simple";
       Restart = "always";
-      StateDirectory = "pb";
-      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:8091' --dir='/var/lib/pb'";
-    };
-  };
-
-  
-  systemd.services.pocketbase-1 = {
-    enable = true;
-    description = "Pocketbase 1";
-
-    wantedBy = [ "multi-user.target" "caddy.service" ];
-
-    serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      StateDirectory = "pb";
-      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:8093' --dir='/var/lib/pb/'";
+      StateDirectory = "pocketbase";
+      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:8090' --dir='/var/lib/pocketbase'";
     };
   };
 

@@ -44,6 +44,9 @@ I use [Caddy](https://caddyserver.com) for revere proxy.
 
 ## Resources
 
+- [The cloud is over-engineered and overpriced](https://www.youtube.com/watch?v=jFrGhodqC08)
+- [Setting up a production ready VPS is a lot easier than I thought](https://www.youtube.com/watch?v=F-9KWQByeU0)
+
 - [Linux Filesystem, where to place files](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)
 - [IIS ARR Zero Downtime](https://github.com/yosoyadri/IIS-ARR-Zero-Downtime)
 - [Zero Downtime Deployments on IIS](https://kevinareed.com/2015/11/07/how-to-deploy-anything-in-iis-with-zero-downtime-on-a-single-server/)
