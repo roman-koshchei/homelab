@@ -1,3 +1,0 @@
-cloud.cookingweb.dev { 
-  reverse_proxy :5000 
-}

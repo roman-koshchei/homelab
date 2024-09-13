@@ -40,3 +40,23 @@ Currently `configuration.nix` also contains some configuration for desktop envir
 
 ## Software
 
+I use [Caddy](https://caddyserver.com) for revere proxy.
+
+## Resources
+
+- [Linux Filesystem, where to place files](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)
+- [IIS ARR Zero Downtime](https://github.com/yosoyadri/IIS-ARR-Zero-Downtime)
+- [Zero Downtime Deployments on IIS](https://kevinareed.com/2015/11/07/how-to-deploy-anything-in-iis-with-zero-downtime-on-a-single-server/)
+
+### Homelabs
+
+List of resource of other people showing their homelabs.
+
+- [arslan.io/2024/09/10/my-homelab-setup](https://arslan.io/2024/09/10/my-homelab-setup)
+
+### Nix
+
+List of resource connected to Nix and NixOS.
+
+- [Cube's NixOS](https://github.com/RGBCube/NCC)
+- [Cab language (nix from Cube)](https://github.com/cull-os/cab)
