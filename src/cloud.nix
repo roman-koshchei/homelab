@@ -3,6 +3,7 @@
 let 
   cloudPort = 5000;
   pocketbasePort = 8090;
+  feedhubPort = 6000;
 
   proxyHttp = 80;
   proxyHttps = 443;
@@ -27,10 +28,33 @@ in {
       '';
     };
 
+    virtualHosts."feedhub.cookingweb.dev" = {
+      extraConfig = ''
+        reverse_proxy :${toString feedhubPort}
+      '';
+    };
+
     virtualHosts."pocketbase.cookingweb.dev" = {
       extraConfig = ''
         reverse_proxy :${toString pocketbasePort}
       '';
+    };
+  };
+
+  systemd.services.feedhub = {
+    enable = true;
+    description = "Feedhub";
+
+    wantedBy = [ "multi-user.target" ];
+
+    # env is currently in .env file
+
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      StateDirectory = "feedhub";
+      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet /var/lib/feedhub/bin/Web.dll --urls 'http://0.0.0.0:${toString feedhubPort}'";
+      WorkingDirectory = "/var/lib/feedhub/bin";
     };
   };
 
