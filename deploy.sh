@@ -10,6 +10,3 @@ ssh -t $SERVER "
   sudo mv /tmp/configuration.nix /etc/nixos/configuration.nix
   sudo nixos-rebuild switch
 "
-
-
-

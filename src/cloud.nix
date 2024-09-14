@@ -40,19 +40,24 @@ in {
     };
   };
 
+  # port is "external"
   systemd.services.feedhub = {
     enable = true;
     description = "Feedhub";
 
     wantedBy = [ "multi-user.target" ];
 
-    # env is currently in .env file
+    environment = {
+      ASPNETCORE_URLS = "http://localhost:${toString feedhubPort}";
+    };
+
+    # env is currently in .env file right beside project files
     serviceConfig = {
       Type = "simple";
       Restart = "always";
       StateDirectory = "feedhub";
-      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet /var/lib/feedhub/bin/Web.dll --urls 'http://0.0.0.0:${toString feedhubPort}'";
       WorkingDirectory = "/var/lib/feedhub/bin";
+      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet ./Web.dll";
     };
   };
 
