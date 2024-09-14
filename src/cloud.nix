@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 let 
-  cloudPort = 5000;
   pocketbasePort = 8090;
   feedhubPort = 6000;
 
@@ -24,7 +23,7 @@ in {
     # needs to be moved to separate config file, because changes during runtime
     virtualHosts."cloud.cookingweb.dev" = {
       extraConfig = ''
-        reverse_proxy :${toString cloudPort}
+        respond "Cooking Web Cloud is in building stage. It's run on an old laptop with NixOS. At some point it will have UI. Checkout all info on cookingweb.dev or my X."
       '';
     };
 
@@ -48,7 +47,6 @@ in {
     wantedBy = [ "multi-user.target" ];
 
     # env is currently in .env file
-
     serviceConfig = {
       Type = "simple";
       Restart = "always";
@@ -56,22 +54,6 @@ in {
       ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet /var/lib/feedhub/bin/Web.dll --urls 'http://0.0.0.0:${toString feedhubPort}'";
       WorkingDirectory = "/var/lib/feedhub/bin";
     };
-  };
-
-  systemd.services.sharp-api-0 = {
-    enable = true;
-    description = "Sharp API";
-
-    wantedBy = [ "multi-user.target" ];
-
-    serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      StateDirectory = "sharp-api";
-      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet /var/lib/sharp-api/bin/SharpApi.dll --urls 'http://0.0.0.0:${toString cloudPort}'";
-      WorkingDirectory = "/var/lib/sharp-api/bin";
-    };
-
   };
 
   systemd.services.pocketbase = {
