@@ -53,9 +53,11 @@ I use [Caddy](https://caddyserver.com) for revere proxy.
 
 ### Homelabs
 
-List of resource of other people showing their homelabs.
+List of resource of other people showing their homelabs and network setups.
+I will need to change my network setup, because now it seems like one of the biggest bottlenecks for speed.
 
 - [arslan.io/2024/09/10/my-homelab-setup](https://arslan.io/2024/09/10/my-homelab-setup)
+- [Fixing my AWFUL Home Networking!](https://www.youtube.com/watch?v=qQx70PuLYI0)
 
 ### Nix
 
