@@ -79,8 +79,14 @@
     isNormalUser = true;
     description = "rk";
     extraGroups = [ "networkmanager" "wheel" ];
+    
     packages = with pkgs; [
     #  thunderbird
+    ];
+
+    # safe to put it here, because it's public key
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVh0ifEy9kxezdsUp1+qx9kcvOwMqOIEb3moQL+4/Nv romankoshchei@gmail.com"
     ];
   };
 
