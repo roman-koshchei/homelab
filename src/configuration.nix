@@ -1,11 +1,23 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{
+let 
+  # optionalFiles = [
+  #   ./feedhub.nix
+  # ];
+  
+  # # Conditionally import each file if it exists
+  # optionalImports = lib.filter (file: builtins.pathExists file) optionalFiles;
+
+  directory = ./services;
+  servicesFilenames = builtins.attrNames (builtins.readDir directory);
+  nixFiles = lib.filter (file: lib.hasSuffix ".nix" file) servicesFilenames;
+  fullPaths = builtins.map (file: "${directory}/${file}") nixFiles;
+in {
   imports =
     [
       ./hardware-configuration.nix
       ./cloud.nix
-    ];
+    ] ++ fullPaths;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

@@ -2,7 +2,7 @@
 
 let 
   pocketbasePort = 8090;
-  feedhubPort = 6000;
+  feedhubPort = 6001;
 
   proxyHttp = 80;
   proxyHttps = 443;
@@ -40,27 +40,6 @@ in {
     };
   };
 
-  # port is "external"
-  systemd.services.feedhub = {
-    enable = true;
-    description = "Feedhub";
-
-    wantedBy = [ "multi-user.target" ];
-
-    environment = {
-      ASPNETCORE_URLS = "http://localhost:${toString feedhubPort}";
-    };
-
-    # env is currently in .env file right beside project files
-    serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      StateDirectory = "feedhub";
-      WorkingDirectory = "/var/lib/feedhub/bin";
-      ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet ./Web.dll";
-    };
-  };
-
   systemd.services.pocketbase = {
     enable = true;
     description = "Pocketbase";
@@ -74,5 +53,4 @@ in {
       ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:${toString pocketbasePort}' --dir='/var/lib/pocketbase'";
     };
   };
-
 }
