@@ -1,16 +1,17 @@
 { config, pkgs, ... }:
 
 let
-  feedhubPort = 6001;
-in {
-  systemd.services.feedhub = {
+  bluePort = 6100;
+  greenPort = bluePort + 1;
+
+  feedhub = port: {
     enable = true;
-    description = "Feedhub";
+    description = "Feedhub systemd instance";
 
     wantedBy = [ "multi-user.target" ];
 
     environment = {
-      ASPNETCORE_URLS = "http://localhost:${toString feedhubPort}";
+      ASPNETCORE_URLS = "http://localhost:${toString port}";
     };
 
     # env is currently in .env file right beside project files
@@ -23,4 +24,14 @@ in {
       RestartSec = 1;
     };
   };
+in {
+  # 2 instances
+  systemd.services.feedhub-blue = feedhub bluePort;
+  # can't 
+  systemd.services.feedhub-green = feedhub greenPort;
+
+  services.caddy.virtualHosts."feedhub.cookingweb.dev".extraConfig = ''
+    reverse_proxy :${toString greenPort}
+  '';
+    
 }

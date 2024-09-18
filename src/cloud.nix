@@ -1,12 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let 
   pocketbasePort = 8090;
-  feedhubPort = 6001;
 
   proxyHttp = 80;
   proxyHttps = 443;
+
+  directory = ./services;
+  servicesFilenames = builtins.attrNames (builtins.readDir directory);
+  nixFiles = lib.filter (file: lib.hasSuffix ".nix" file) servicesFilenames;
+  servicesImports = builtins.map (file: "${directory}/${file}") nixFiles;
 in {
+  imports = servicesImports;
+
   # http and https
   networking.firewall.allowedTCPPorts = [ proxyHttp proxyHttps ];
   # http/3
@@ -24,12 +30,6 @@ in {
     virtualHosts."cloud.cookingweb.dev" = {
       extraConfig = ''
         respond "Cooking Web self-hosted cloud is in a research stage. It runs on an old laptop with NixOS. At some point it will have UI. Checkout all info on cookingweb.dev or my X."
-      '';
-    };
-
-    virtualHosts."feedhub.cookingweb.dev" = {
-      extraConfig = ''
-        reverse_proxy :${toString feedhubPort}
       '';
     };
 
