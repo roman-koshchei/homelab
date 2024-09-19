@@ -21,12 +21,12 @@ let
       StateDirectory = "feedhub";
       WorkingDirectory = "/var/lib/feedhub/bin";
       ExecStart = "${pkgs.dotnet-aspnetcore_8}/bin/dotnet ./Web.dll";
-      RestartSec = 1;
+      RestartSec = 0;
     };
   };
 in {
   # 2 instances
-  systemd.services.feedhub-blue = feedhub bluePort;
+  # systemd.services.feedhub-blue = feedhub bluePort;
   # can't 
   systemd.services.feedhub-green = feedhub greenPort;
 
