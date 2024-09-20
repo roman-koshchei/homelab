@@ -26,12 +26,12 @@ let
   };
 in {
   # 2 instances
-  systemd.services.feedhub-blue = feedhub bluePort;
+  # systemd.services.feedhub-blue = feedhub bluePort;
   # can't 
-  # systemd.services.feedhub-green = feedhub greenPort;
+  systemd.services.feedhub-green = feedhub greenPort;
 
   services.caddy.virtualHosts."feedhub.cookingweb.dev".extraConfig = ''
-    reverse_proxy :${toString bluePort}
+    reverse_proxy :${toString greenPort}
   '';
     
 }
