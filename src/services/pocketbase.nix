@@ -14,7 +14,7 @@ in {
       Type = "simple";
       Restart = "always";
       StateDirectory = stateDir;
-      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='0.0.0.0:${toString port}' --dir='/var/lib/${stateDir}'";
+      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http='localhost:${toString port}' --dir='/var/lib/${stateDir}'";
     };
   };
 
