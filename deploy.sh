@@ -6,6 +6,7 @@ scp ./src/configuration.nix $SERVER:/tmp
 scp ./src/cloud.nix $SERVER:/tmp
 scp ./src/services/feedhub.nix $SERVER:/tmp
 scp ./src/services/pocketbase.nix $SERVER:/tmp
+# scp ./src/services/pocketbase-tmp.nix $SERVER:/tmp
 
 ssh -t $SERVER "
   sudo mv /tmp/cloud.nix /etc/nixos/cloud.nix

@@ -2,9 +2,10 @@
 
 let
   port = 8090;
+  id = "pocketbase";
   stateDir = "pocketbase";
 in {
-  systemd.services.pocketbase = {
+  systemd.services.${id} = {
     enable = true;
     description = "Pocketbase";
 
@@ -18,7 +19,8 @@ in {
     };
   };
 
-  services.caddy.virtualHosts."pocketbase.cookingweb.dev".extraConfig = ''
+  # lib.mkOrder (if reload then 50 else 100) 
+  services.caddy.virtualHosts."pocketbase.cookingweb.dev".extraConfig =''
     reverse_proxy :${toString port}
   '';
 }
