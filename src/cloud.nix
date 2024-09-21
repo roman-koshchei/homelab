@@ -27,7 +27,7 @@ in {
     # needs to be moved to separate config file, because changes during runtime
     virtualHosts."cloud.cookingweb.dev" = {
       extraConfig = ''
-        reverse_proxy :3001
+        reverse_proxy :3002
       '';
       # extraConfig = ''
       #   respond "Cooking Web self-hosted cloud is in a research stage. It runs on an old laptop with NixOS. At some point it will have UI. Checkout all info on cookingweb.dev or my X."
@@ -38,7 +38,7 @@ in {
   services.uptime-kuma = {
     enable = true;
     settings = {
-      PORT = "3001";
+      PORT = "3002";
     };
   };
 }
