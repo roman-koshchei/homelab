@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+# NOT ACTIVE, REPLACED WITH:
+# https://github.com/roman-koshchei/feedhub/blob/main/config/feedhub.nix
+
 let
   bluePort = 6100;
   greenPort = bluePort + 1;
