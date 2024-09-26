@@ -2,6 +2,19 @@
 
 Building cloud on own old laptop to create cloud boxes later.
 
+## Running services
+
+I need to run services to get production-like environment,
+so I run some of my own apps on it:
+
+- Pocketbase instance, see [pocketbase.nix](./src/services/pocketbase.nix)
+- Feedhub web app, see [feedhub.nix and deploy.sh in feedhub repo](https://github.com/roman-koshchei/feedhub)
+- Uptime Kuma
+
+Feedhub deployment files are moved to feedhub repository,
+because that's how you would use it anyway.
+Keeping deploy configuration right inside of the project.
+
 ## Router
 
 To make web server accessible from public internet we need to forward ports from router to a machine that runs server.
