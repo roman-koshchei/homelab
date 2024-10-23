@@ -107,7 +107,14 @@
 
   # Enable the OpenSSH daemon.
   networking.firewall.allowedTCPPorts = [ 22 ];
-  services.openssh.enable = true;
+  
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
+  };
 
   # Remove old versions of the system that are older than 7 days
   nix.gc = {
